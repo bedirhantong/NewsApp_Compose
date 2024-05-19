@@ -50,6 +50,9 @@ android {
 }
 
 dependencies {
+
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.7.2")
+
     // for using placeholder while actual image is loading
     implementation ("com.github.skydoves:landscapist-coil:1.4.1")
 

@@ -8,6 +8,13 @@ import retrofit2.http.Query
 interface NewsService {
     @GET("top-headlines")
     fun getTopArticles(
-        @Query("country") country:String,
-        @Query("apiKey")apiKey:String): Call<TopNewsResponse>
+        @Query("country") country:String):
+            Call<TopNewsResponse>
+
+    @GET("everything")
+    fun getTopArticlesByQuery(
+        @Query("q") query:String
+    ): Call<TopNewsResponse>
+
+
 }
