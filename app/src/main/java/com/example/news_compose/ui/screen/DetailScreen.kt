@@ -46,35 +46,35 @@ import com.example.news_compose.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DetailScreen(
-    onClick: () -> Unit
-//    newsData: NewsData, scrollState: ScrollState,navController: NavController
+
+    newsData: NewsData, scrollState: ScrollState,navController: NavController
 ) {
     Scaffold(topBar = {
         TopAppBar(
-//            onBackPressed = {navController.popBackStack()}
+            onBackPressed = {navController.popBackStack()}
         )
     }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-//                .verticalScroll(scrollState)
+                .verticalScroll(scrollState)
             ,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "Detail Screen", fontWeight = FontWeight.SemiBold)
-//            Image(painter = painterResource(id = newsData.image), contentDescription = "",contentScale =  ContentScale.FillBounds,
-//                modifier = Modifier.fillMaxSize().height(250.dp),)
+            Image(painter = painterResource(id = newsData.image), contentDescription = "",contentScale =  ContentScale.FillBounds,
+                modifier = Modifier.fillMaxSize().height(250.dp),)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween
             ) {
-//                InfoWithIcon(Icons.Default.Edit, info = newsData.author)
-//                InfoWithIcon(icon = Icons.Default.DateRange, info = newsData.publishedAt)
+                InfoWithIcon(Icons.Default.Edit, info = newsData.author)
+                InfoWithIcon(icon = Icons.Default.DateRange, info = newsData.publishedAt)
             }
-//            Text(text = newsData.title, fontWeight = FontWeight.Bold)
-//            Text(text = newsData.description, modifier = Modifier.padding(top = 16.dp))
+            Text(text = newsData.title, fontWeight = FontWeight.Bold)
+            Text(text = newsData.description, modifier = Modifier.padding(top = 16.dp))
         }
     }
 
