@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.news_compose.NewsData
 import com.example.news_compose.models.TopNewsArticle
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

@@ -1,6 +1,5 @@
 package com.example.news_compose.ui
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,7 +8,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -19,7 +17,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.news_compose.BottomMenuScreen
-import com.example.news_compose.MockData
 import com.example.news_compose.components.BottomMenu
 import com.example.news_compose.models.TopNewsArticle
 import com.example.news_compose.network.NewsManager
