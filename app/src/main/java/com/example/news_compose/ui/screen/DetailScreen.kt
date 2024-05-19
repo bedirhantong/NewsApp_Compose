@@ -1,7 +1,6 @@
 package com.example.news_compose.ui.screen
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,24 +29,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.news_compose.NewsData
 import com.example.news_compose.R
+import com.example.news_compose.models.TopNewsArticle
+import com.skydoves.landscapist.coil.CoilImage
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DetailScreen(
 
-    newsData: NewsData, scrollState: ScrollState,navController: NavController
+    article: TopNewsArticle, scrollState: ScrollState,navController: NavController
 ) {
     Scaffold(topBar = {
         TopAppBar(
@@ -63,18 +65,23 @@ fun DetailScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "Detail Screen", fontWeight = FontWeight.SemiBold)
-            Image(painter = painterResource(id = newsData.image), contentDescription = "",contentScale =  ContentScale.FillBounds,
-                modifier = Modifier.fillMaxSize().height(250.dp),)
+            CoilImage(
+                imageModel = article.urlToImage,
+                contentScale = ContentScale.Inside,
+                error = ImageBitmap.imageResource(R.drawable.placeholder_centered),
+                placeHolder = ImageBitmap.imageResource(R.drawable.placeholder_centered)
+            )
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                InfoWithIcon(Icons.Default.Edit, info = newsData.author)
-                InfoWithIcon(icon = Icons.Default.DateRange, info = newsData.publishedAt)
+                InfoWithIcon(Icons.Default.Edit, info = article.author?:"Not avaliable")
+                InfoWithIcon(icon = Icons.Default.DateRange, info = article.publishedAt!!)
             }
-            Text(text = newsData.title, fontWeight = FontWeight.Bold)
-            Text(text = newsData.description, modifier = Modifier.padding(top = 16.dp))
+            Text(text = article.title?:"Not avaliable", fontWeight = FontWeight.Bold)
+            Text(text = article.description?:"Not avaliable", modifier = Modifier.padding(top = 16.dp))
         }
     }
 
@@ -107,7 +114,10 @@ fun TopAppBar(onBackPressed: () -> Unit = {}) {
                 Icon(imageVector = Icons.Outlined.Share, contentDescription = "Share")
             }
             IconButton(onClick = { /* Web sayfasını aç */ }) {
-                Icon(painter = painterResource(R.drawable.cccc), contentDescription = "Web",Modifier.height(28.dp).width(28.dp))
+                Icon(painter = painterResource(R.drawable.cccc), contentDescription = "Web",
+                    Modifier
+                        .height(28.dp)
+                        .width(28.dp))
             }
         }
     )
@@ -126,16 +136,17 @@ fun InfoWithIcon(icon: ImageVector, info: String) {
         Text(text = info.substring(0,10))
     }
 }
-//@Preview(showBackground = true)
-//@Composable
-//fun DetailScreenPreview() {
-//    DetailScreen(
-////        NewsData(
-////            2,
-////            author = "Bedirhan Tong",
-////            title = "Appcent Internship",
-////            description = "Appcent Testcase",
-////            publishedAt = "2024-05-18T12:22:32Z"
-////        ), rememberScrollState(), rememberNavController()
-//    )
-//}
+@Preview(showBackground = true)
+@Composable
+fun DetailScreenPreview() {
+    DetailScreen(
+        TopNewsArticle(
+            author = "Bedirhan Tong",
+            title = "Appcent Internship",
+            description = "Appcent Testcase",
+            publishedAt = "2024-05-18T12:22:32Z"
+        ),
+        rememberScrollState(),
+        rememberNavController()
+    )
+}

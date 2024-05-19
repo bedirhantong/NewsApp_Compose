@@ -1,6 +1,5 @@
 package com.example.news_compose.components
 
-
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
@@ -69,38 +68,3 @@ fun BottomMenu(navController: NavController) {
         }
     }
 }
-
-
-//    BottomNavigation(contentColor = colorResource(id = R.color.white))
-//    {
-//        val navBackStackEntry by navController.currentBackStackEntryAsState()
-//        val currentRoute = navBackStackEntry?.destination?.route
-//        menuItems.forEach {
-//            BottomNavigationItem(
-//                label = { Text(text = it.title) },
-//                alwaysShowLabel = true,
-//                selectedContentColor = Color.White,
-//                unselectedContentColor = Color.Gray,
-//                selected = currentRoute == it.route,
-//                onClick = {
-//                    navController.navigate(it.route) {
-//                        navController.graph.startDestinationRoute?.let { route ->
-//                            popUpTo(route) {
-//                                saveState = true
-//                            }
-//                        }
-//                        launchSingleTop = true
-//                        restoreState = true
-//                    }
-//                },
-//                icon = {
-//                    Icon(
-//                        imageVector = it.icon,
-//                        contentDescription = it.title
-//                    )
-//                },
-//
-//                )
-//
-//        }
-//    }
