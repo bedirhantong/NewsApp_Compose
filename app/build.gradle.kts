@@ -50,13 +50,17 @@ android {
 }
 
 dependencies {
-//    implementation(libs.androidx.navigation.runtime.ktx)
+    // for using placeholder while actual image is loading
+    implementation ("com.github.skydoves:landscapist-coil:1.4.1")
+
+    //Retrofit https://square.github.io/retrofit/
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // converter for class com.example.news_compose.models.TopNewsResponse
+    implementation ("com.squareup.moshi:moshi-kotlin:1.9.3")
+    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
+
     implementation("androidx.compose.material:material")
-//    val nav_version = "2.7.7"
-    //navigation dependency
-//    implementation("androidx.navigation:navigation-compose:2.4.0-beta02")
-
-
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -73,7 +77,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-//    implementation "androidx.compose.material:material:1.0.0"
-//    implementation "androidx.compose.material3:material3:1.0.0"
     implementation("androidx.navigation:navigation-compose:2.5.0-rc01")
 }

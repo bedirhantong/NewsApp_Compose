@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.news_compose.NewsData
+import com.example.news_compose.models.TopNewsArticle
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -51,12 +52,12 @@ fun FavAppBar() {
 @Preview(showBackground = true)
 @Composable
 fun FavoritesPreview() {
-        TopNewsItem(  NewsData(
-            2,
-            author = "Bedirhan Tong",
-            title = "Appcent Internship",
-            description = "Appcent Testcase",
-            publishedAt = "2024-05-18T12:22:32Z"
-        )
+    TopNewsItem(
+        TopNewsArticle(
+        author = "Bedirhan Tong",
+        title = "Appcent Internship",
+        description = "Appcent Testcase",
+        publishedAt = "2024-05-18T12:22:32Z"
+    )
     )
 }
