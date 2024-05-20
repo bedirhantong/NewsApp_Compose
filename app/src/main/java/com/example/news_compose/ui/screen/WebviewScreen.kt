@@ -1,12 +1,19 @@
 package com.example.news_compose.ui.screen
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
@@ -15,29 +22,38 @@ import com.example.news_compose.models.TopNewsArticle
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun WebViewScreen(
-    article : TopNewsArticle,
-    navController: NavController? = null
+    url: String,
 ){
     Scaffold {
-        Box (
-            modifier = Modifier.padding(it)
-        ){
-            AndroidView(
-                factory = {context ->
+        var backEnable by remember{
+            mutableStateOf(false)
+        }
+        var webView : WebView ?= null
+        
+        AndroidView(
+            modifier = Modifier,
+            factory = { context ->
                 WebView(context).apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                    webViewClient = object : WebViewClient(){
+                        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                            super.onPageStarted(view, url, favicon)
+                            backEnable = view!!.canGoBack()
+                        }
+                    }
                     settings.javaScriptEnabled = true
-                    webViewClient = WebViewClient()
-
-                    settings.loadWithOverviewMode = true
-                    settings.useWideViewPort = true
-                    settings.setSupportZoom(true)
+                    loadUrl(url)
+                    webView = this
                 }
-            },
-               update = {
-                   article.url?.let { it1 -> it.loadUrl(it1) }
-
-               }
-            )
+            }, update = {
+                webView = it
+            }
+        )
+        BackHandler(enabled = backEnable) {
+            webView?.goBack()
         }
     }
 }

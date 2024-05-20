@@ -55,7 +55,7 @@ fun DetailScreen(
 ) {
     Scaffold(topBar = {
         TopAppBar(
-            onBackPressed = {navController.popBackStack()}
+            onBackPressed = {navController.popBackStack()},navController,article
         )
     }) {
         Column(
@@ -105,7 +105,7 @@ fun DetailScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(onBackPressed: () -> Unit = {}) {
+fun TopAppBar(onBackPressed: () -> Unit = {},navController: NavController,article: TopNewsArticle,) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.White,
@@ -132,7 +132,7 @@ fun TopAppBar(onBackPressed: () -> Unit = {}) {
                 Icon(imageVector = Icons.Outlined.Share, contentDescription = "Share")
             }
             IconButton(onClick = {
-
+                navController.navigate("webview_screen?url=${article.url}")
             })
             { Icon(painter = painterResource(R.drawable.cccc), contentDescription = "Web",
                     Modifier
