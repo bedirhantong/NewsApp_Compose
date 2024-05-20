@@ -1,6 +1,5 @@
 package com.example.news_compose.ui
 
-import android.util.Log
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -27,6 +26,7 @@ import com.example.news_compose.network.NewsManager
 import com.example.news_compose.ui.screen.DetailScreen
 import com.example.news_compose.ui.screen.Favorites
 import com.example.news_compose.ui.screen.TopNews
+import com.example.news_compose.ui.screen.WebViewScreen
 
 
 @Composable
@@ -66,7 +66,6 @@ fun Navigation(
     val topArticles = viewModel.newsResponse.collectAsState().value.articles
     articles.addAll(topArticles ?: listOf())
 
-    Log.d("news","$articles")
     articles.let {
         NavHost(
             navController = navController,
@@ -75,7 +74,8 @@ fun Navigation(
         ) {
             val queryState = mutableStateOf(viewModel.query.value)
             bottomNavigation(navController = navController,articles, query = queryState,viewModel)
-            composable("Detail/{index}",
+
+            composable(Screens.DetailScreen.route,
                 arguments = listOf(
                     navArgument("index") { type = NavType.IntType }
                 )) { navBackStackEntry ->
@@ -92,6 +92,15 @@ fun Navigation(
                     DetailScreen(article, scrollState, navController)
                 }
             }
+
+            composable(
+                route = Screens.WebViewScreen.route,
+                arguments = listOf(navArgument("url") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                val url = navBackStackEntry.arguments?.getString("url") ?: ""
+                WebViewScreen(url = url, navController = navController)
+            }
+
 
 
         }
