@@ -5,22 +5,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
@@ -28,12 +23,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.news_compose.models.TopNewsArticle
 import com.skydoves.landscapist.coil.CoilImage
 import com.example.news_compose.R
 import com.example.news_compose.components.SearchBar
-import com.example.news_compose.network.NewsManager
 import com.example.news_compose.ui.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -49,8 +44,6 @@ fun TopNews(
             TopAppBar1()
         }
     ){
-
-
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -83,14 +76,10 @@ fun TopNews(
 @Composable
 fun TopAppBar1() {
     CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.White,
-            titleContentColor = Color.Black,
-        ),
         title = {
             Text(
                 text = "News",
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold, fontSize = 32.sp
 
             )
         },
@@ -118,7 +107,6 @@ fun TopNewsItem(
                     text = article.title ?: "No Title",
                     maxLines = 2,
                     fontWeight = FontWeight.ExtraBold,
-                    color = Color.Black,
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(14.dp))
@@ -126,7 +114,6 @@ fun TopNewsItem(
                     text = article.description ?: "No Description",
                     maxLines = 2,
                     fontWeight = FontWeight.Normal,
-                    color = Color.Black,
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(14.dp))
@@ -139,7 +126,6 @@ fun TopNewsItem(
                         Text(
                             fontWeight = FontWeight.SemiBold,
                             text = article.source?.name ?: "Unknown Source",
-                            color = Color.Black,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -148,7 +134,6 @@ fun TopNewsItem(
                     Text(
                         fontWeight = FontWeight.SemiBold,
                         text = article.publishedAt?.substring(0,10)?: "Unknown Source",
-                        color = Color.Black,
                     )
                 }
 

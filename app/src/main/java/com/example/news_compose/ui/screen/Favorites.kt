@@ -5,11 +5,10 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.example.news_compose.models.TopNewsArticle
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -33,14 +32,10 @@ fun Favorites(){
 fun FavAppBar() {
 
     CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.White,
-            titleContentColor = Color.Black,
-        ),
         title = {
             Text(
                 text = "Favorites",
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold, fontSize = 27.sp
 
             )
         },
