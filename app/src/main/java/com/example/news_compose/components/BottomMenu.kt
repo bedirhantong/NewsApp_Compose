@@ -3,7 +3,6 @@ package com.example.news_compose.components
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,9 +20,7 @@ fun BottomMenu(navController: NavController) {
         BottomMenuScreen.TopNews,
         BottomMenuScreen.Favorites,
     )
-    BottomAppBar(
-        containerColor = Color.White,
-    ) {
+    BottomAppBar {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         menuItems.forEach { menuItem ->
@@ -59,11 +56,6 @@ fun BottomMenu(navController: NavController) {
                         tint = if (currentRoute == menuItem.route) Color.White else Color.LightGray
                     )
                 },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedTextColor = Color(0xFF062840),
-                    indicatorColor = Color(0xFF062840),
-                    unselectedTextColor = Color.LightGray
-                )
             )
         }
     }

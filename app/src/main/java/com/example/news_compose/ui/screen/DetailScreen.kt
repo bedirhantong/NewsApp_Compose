@@ -15,7 +15,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -67,7 +66,6 @@ fun DetailScreen(
                     Text(
                         fontWeight = FontWeight.SemiBold,
                         text = article.author ?: "Not available",
-                        color = Color.Black,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -76,7 +74,6 @@ fun DetailScreen(
                 Text(
                     fontWeight = FontWeight.SemiBold,
                     text = article.publishedAt?.substring(0, 10) ?: "Unknown Source",
-                    color = Color.Black,
                 )
             }
 
@@ -87,8 +84,11 @@ fun DetailScreen(
 }
 
 fun shareDetailedArticle(context: Context, article: TopNewsArticle) {
+
+
     val sendIntent = Intent(Intent.ACTION_SEND).apply {
         putExtra(Intent.EXTRA_TEXT, "${article.url ?: article.title}")
+        putExtra(Intent.EXTRA_TITLE, article.title ?: "")
         type = "text/plain"
     }
     val shareIntent = Intent.createChooser(sendIntent, null)
@@ -102,10 +102,6 @@ fun TopAppBar(onBackPressed: () -> Unit = {}, navController: NavController, arti
     val context = LocalContext.current
 
     CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.White,
-            titleContentColor = Color.Black,
-        ),
         title = {
             Text(
                 text = "",
@@ -118,7 +114,9 @@ fun TopAppBar(onBackPressed: () -> Unit = {}, navController: NavController, arti
             }
         },
         actions = {
-            IconButton(onClick = { /* Handle favorite action */ }) {
+            IconButton(onClick = {
+                // TODO: Handling favorite article with ROOM
+            }) {
                 Icon(imageVector = Icons.Outlined.Favorite, contentDescription = "Favorite")
             }
             IconButton(onClick = { shareDetailedArticle(context, article) }) {
