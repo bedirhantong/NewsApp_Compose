@@ -5,6 +5,7 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,6 +37,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -64,24 +66,38 @@ fun DetailScreen(
             ,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Detail Screen", fontWeight = FontWeight.SemiBold)
+            Spacer(modifier = Modifier.height(50.dp))
             CoilImage(
                 imageModel = article.urlToImage,
-                contentScale = ContentScale.Inside,
+                contentScale = ContentScale.FillWidth,
                 error = ImageBitmap.imageResource(R.drawable.placeholder_centered),
                 placeHolder = ImageBitmap.imageResource(R.drawable.placeholder_centered)
             )
-
+            Spacer(modifier = Modifier.height(20.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                InfoWithIcon(Icons.Default.Edit, info = article.author?:"Not avaliable")
-                InfoWithIcon(icon = Icons.Default.DateRange, info = article.publishedAt!!)
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        fontWeight = FontWeight.SemiBold,
+                        text =article.author?:"Not avaliable",
+                        color = Color.Black,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                Spacer(modifier = Modifier.width(14.dp))
+                Text(
+                    fontWeight = FontWeight.SemiBold,
+                    text = article.publishedAt?.substring(0,10)?: "Unknown Source",
+                    color = Color.Black,
+                )
             }
+
             Text(text = article.title?:"Not avaliable", fontWeight = FontWeight.Bold)
-            Text(text = article.description?:"Not avaliable", modifier = Modifier.padding(top = 16.dp))
+            Text(text = article.content?:"Not avaliable", modifier = Modifier.padding(top = 16.dp))
         }
     }
 
@@ -110,11 +126,15 @@ fun TopAppBar(onBackPressed: () -> Unit = {}) {
             IconButton(onClick = { }) {
                 Icon(imageVector = Icons.Outlined.Favorite, contentDescription = "Favorite")
             }
-            IconButton(onClick = { /* Web sayfasını aç */ }) {
+            IconButton(onClick = {
+
+            }) {
                 Icon(imageVector = Icons.Outlined.Share, contentDescription = "Share")
             }
-            IconButton(onClick = { /* Web sayfasını aç */ }) {
-                Icon(painter = painterResource(R.drawable.cccc), contentDescription = "Web",
+            IconButton(onClick = {
+
+            })
+            { Icon(painter = painterResource(R.drawable.cccc), contentDescription = "Web",
                     Modifier
                         .height(28.dp)
                         .width(28.dp))
@@ -122,20 +142,8 @@ fun TopAppBar(onBackPressed: () -> Unit = {}) {
         }
     )
 }
-@Composable
-fun InfoWithIcon(icon: ImageVector, info: String) {
-    Row {
-        Icon(
-            icon,
-            contentDescription = "Author",
-            modifier = Modifier.padding(end = 8.dp),
-            colorResource(
-                id = R.color.purple_500
-            )
-        )
-        Text(text = info.substring(0,10))
-    }
-}
+
+
 @Preview(showBackground = true)
 @Composable
 fun DetailScreenPreview() {
