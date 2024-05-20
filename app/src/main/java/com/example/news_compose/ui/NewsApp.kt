@@ -10,6 +10,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -41,26 +42,21 @@ fun NewsApp(mainViewModel: MainViewModel) {
 }
 
 @Composable
-fun MainScreen(navController: NavHostController,scrollState: ScrollState,mainViewModel: MainViewModel) {
-    Scaffold(bottomBar ={
-        BottomMenu(navController = navController)
-    }) {
-        Navigation(navController =navController ,
-            scrollState = scrollState,
-            paddingValues = it ,
-            viewModel = mainViewModel)
-    }
+fun MainScreen(navController: NavHostController, scrollState: ScrollState, mainViewModel: MainViewModel) {
+    Navigation(
+        navController = navController,
+        scrollState = scrollState,
+        viewModel = mainViewModel
+    )
 }
-
 
 @Composable
 fun Navigation(
     navController: NavHostController,
     scrollState: ScrollState,
-    paddingValues: PaddingValues,
+    paddingValues: PaddingValues = PaddingValues(0.dp),
     newsManager: NewsManager = NewsManager(Api.retrofitService),
     viewModel: MainViewModel
-
 ) {
     val articles = mutableListOf(TopNewsArticle())
     val topArticles = viewModel.newsResponse.collectAsState().value.articles
@@ -73,7 +69,7 @@ fun Navigation(
             Modifier.padding(paddingValues)
         ) {
             val queryState = mutableStateOf(viewModel.query.value)
-            bottomNavigation(navController = navController,articles, query = queryState,viewModel)
+            bottomNavigation(navController = navController, articles, query = queryState, viewModel)
 
             composable(Screens.DetailScreen.route,
                 arguments = listOf(
@@ -81,10 +77,10 @@ fun Navigation(
                 )) { navBackStackEntry ->
                 val index = navBackStackEntry.arguments?.getInt("index")
                 index?.let {
-                    if (queryState.value != ""){
+                    if (queryState.value != "") {
                         articles.clear()
-                        articles.addAll(viewModel.searchedNewsResponse.value.articles?: listOf())
-                    }else{
+                        articles.addAll(viewModel.searchedNewsResponse.value.articles ?: listOf())
+                    } else {
                         articles.clear()
                         articles.addAll(viewModel.newsResponse.value.articles ?: listOf())
                     }
@@ -100,26 +96,32 @@ fun Navigation(
                 val url = navBackStackEntry.arguments?.getString("url") ?: ""
                 WebViewScreen(url = url, navController = navController)
             }
-
-
-
         }
     }
-
-
 }
 
 fun NavGraphBuilder.bottomNavigation(
     navController: NavController,
-    articles:List<TopNewsArticle>,
-    query : MutableState<String>,
+    articles: List<TopNewsArticle>,
+    query: MutableState<String>,
     viewModel: MainViewModel
-
 ) {
     composable(BottomMenuScreen.TopNews.route) {
-        TopNews(navController = navController,articles, query, viewModel = viewModel)
+        Scaffold(
+            bottomBar = {
+                BottomMenu(navController = navController)
+            }
+        ) {
+            TopNews(navController = navController, articles, query, viewModel = viewModel)
+        }
     }
     composable(BottomMenuScreen.Favorites.route) {
-        Favorites()
+        Scaffold(
+            bottomBar = {
+                BottomMenu(navController = navController)
+            }
+        ) {
+            Favorites()
+        }
     }
 }
