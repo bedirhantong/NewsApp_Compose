@@ -49,6 +49,8 @@ fun TopNews(
             TopAppBar1()
         }
     ){
+
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -73,6 +75,10 @@ fun TopNews(
     }
 
 }
+
+
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar1() {

@@ -98,7 +98,7 @@ fun Navigation(
                 arguments = listOf(navArgument("url") { type = NavType.StringType })
             ) { navBackStackEntry ->
                 val url = navBackStackEntry.arguments?.getString("url") ?: ""
-                WebViewScreen(url = url)
+                WebViewScreen(url = url, navController = navController)
             }
 
 
