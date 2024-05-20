@@ -8,6 +8,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -22,29 +23,32 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("SetJavaScriptEnabled")
+@SuppressLint("SetJavaScriptEnabled", "UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun WebViewScreen(
     url: String,
     navController: NavController
 ){
+    val darkTheme: Boolean = isSystemInDarkTheme()
     Scaffold (
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(text = "WebView",
                         fontWeight = FontWeight.SemiBold,
+                        color = if (darkTheme) Color.White else Color.Black,
                         fontSize = 24.sp)
                         },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back", tint =  if (darkTheme) Color.White else Color.Black,)
                     }
                 }
             )
@@ -68,7 +72,6 @@ fun WebViewScreen(
                             super.onPageStarted(view, url, favicon)
                             backEnable = view!!.canGoBack()
                         }
-
                         override fun onReceivedError(
                             view: WebView?,
                             request: WebResourceRequest?,

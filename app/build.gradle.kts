@@ -51,8 +51,6 @@ android {
 
 dependencies {
 
-    // statusbar color
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 
     implementation ("com.squareup.okhttp3:logging-interceptor:4.7.2")
 
