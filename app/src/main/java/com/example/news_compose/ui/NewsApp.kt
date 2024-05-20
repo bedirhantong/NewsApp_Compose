@@ -1,5 +1,6 @@
 package com.example.news_compose.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -49,7 +50,6 @@ fun MainScreen(navController: NavHostController, scrollState: ScrollState, mainV
         viewModel = mainViewModel
     )
 }
-
 @Composable
 fun Navigation(
     navController: NavHostController,
@@ -100,6 +100,7 @@ fun Navigation(
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun NavGraphBuilder.bottomNavigation(
     navController: NavController,
     articles: List<TopNewsArticle>,
@@ -125,3 +126,4 @@ fun NavGraphBuilder.bottomNavigation(
         }
     }
 }
+
