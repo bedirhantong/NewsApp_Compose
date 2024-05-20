@@ -1,6 +1,5 @@
 package com.example.news_compose.components
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,7 +8,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -24,10 +22,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.news_compose.network.NewsManager
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.news_compose.ui.MainViewModel
 
 @Composable
-fun SearchBar(query: MutableState<String>, newsManager: NewsManager) {
+fun SearchBar(query: MutableState<String>, viewModel: MainViewModel) {
     val localFocusManager = LocalFocusManager.current
     Card(elevation = 0.dp,shape = RoundedCornerShape(10.dp),
         modifier = Modifier
@@ -71,7 +70,7 @@ fun SearchBar(query: MutableState<String>, newsManager: NewsManager) {
             keyboardActions = KeyboardActions(
                 onSearch = {
                     if (query.value != "") {
-                        newsManager.getSearchedArticles(query.value)
+                        viewModel.getSearchedArticles(query.value)
                     }
                     localFocusManager.clearFocus()
                 }
@@ -86,5 +85,5 @@ fun SearchBar(query: MutableState<String>, newsManager: NewsManager) {
 @Preview(showBackground = true)
 @Composable
 fun SearchBarPreview() {
-    SearchBar(query = mutableStateOf(""),NewsManager())
+    SearchBar(query = mutableStateOf(""), viewModel())
 }
