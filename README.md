@@ -1,5 +1,5 @@
 # NewsApp
-- This application is developed for internship application for Appcent company.
+- This application is developed as an internship application for Appcent company.
 
 
 ## Built With 🛠
